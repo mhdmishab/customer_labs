@@ -62,17 +62,20 @@ function SaveSegment() {
             [value.value]: value.label,
         }));
 
-        const data = {
-            segment_name: name,
-            schema: segment_array,
-        };
+        // const data = {
+        //     "segment_name": name,
+        //     "schema": segment_array,
+        // };
+
+        // console.log(data)
+
+        const formData = new FormData();
+        formData.append('segment_name', name);
+        formData.append('schema', JSON.stringify(segment_array));
 
         fetch('https://webhook.site/a21daee5-66bc-46de-9999-e1dcd30279b1', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
             .then((response) => response.json())
             .then((data) => {
